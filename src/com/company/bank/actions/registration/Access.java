@@ -1,4 +1,4 @@
-package com.company.bank.operations;
+package com.company.bank.actions.registration;
 
 import java.util.List;
 import java.util.Scanner;

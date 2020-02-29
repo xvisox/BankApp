@@ -1,56 +1,34 @@
-package com.company.bank.operations;
+package com.company.bank.actions.user;
 
+import com.company.bank.actions.Action;
+import com.company.bank.database.Database;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 
-
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class SignUp implements Action {
-    private static File usersFile = new File("usersFile");
+public class EmployeeAddAction implements Action {
     private List<User> usersList;
-    private Scanner sc;
 
-    public SignUp(List<User> usersList, Scanner sc) {
+    public EmployeeAddAction(List<User> usersList, Scanner sc) {
         this.usersList = usersList;
         this.sc = sc;
     }
 
-    private void signUp() {
+    private Scanner sc;
+
+    private void addEmployee() {
         String login, password;
         login = settingLogin();
         password = settingPassword();
-        User user = new User(login, password, Role.CUSTOMER, false);
+        User user = new User(login, password, Role.EMPLOYEE, true);
         usersList.add(user);
         saveUsers();
-    }
-
-    private String settingPassword() {
-        String password, securityInfo;
-        securityInfo = "Your password isnt secure, try following above instructions";
-
-        System.out.println("Enter password: ");
-        password = sc.nextLine();
-        while (!passCheck(password)) {
-            System.out.println(securityInfo);
-            password = sc.nextLine();
-        }
-        System.out.println("Correct password");
-        return password;
-    }
-
-    private String settingLogin() {
-        String login;
-        System.out.println("Enter login:");
-        login = sc.nextLine();
-        while (isAlreadyTaken(login)) {
-            System.out.println("Username is already taken, try again");
-            login = sc.nextLine();
-        }
-        return login;
     }
 
     private static boolean passCheck(String password) {
@@ -100,6 +78,31 @@ public class SignUp implements Action {
         return false;
     }
 
+    private String settingLogin() {
+        String login;
+        System.out.println("Enter login:");
+        login = sc.nextLine();
+        while (isAlreadyTaken(login)) {
+            System.out.println("Username is already taken, try again");
+            login = sc.nextLine();
+        }
+        return login;
+    }
+
+    private String settingPassword() {
+        String password, securityInfo;
+        securityInfo = "Password isnt secure, try following above instructions";
+
+        System.out.println("Enter password: ");
+        password = sc.nextLine();
+        while (!passCheck(password)) {
+            System.out.println(securityInfo);
+            password = sc.nextLine();
+        }
+        System.out.println("Correct password");
+        return password;
+    }
+
     private void saveUsers() {
         List<String> lines = new ArrayList<>();
         for (User user : usersList) {
@@ -115,7 +118,7 @@ public class SignUp implements Action {
         }
         PrintWriter pr = null;
         try {
-            pr = new PrintWriter(new FileOutputStream(usersFile));
+            pr = new PrintWriter(new FileOutputStream(Database.usersFile));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -126,32 +129,14 @@ public class SignUp implements Action {
         pr.close();
     }
 
-    public static List<User> loadUsers() {
-        List<User> usersList = new ArrayList<>();
-        try (BufferedReader fileReader = new BufferedReader(new FileReader(usersFile))) {
-            String line;
-            while ((line = fileReader.readLine()) != null) {
-                String[] split = line.split(",");
-                User user = new User();
-                user.setLogin(split[0]);
-                user.setPassword(split[1]);
-                user.setRole(Role.valueOf(split[2]));//???????? help me
-                user.setAccepted(Boolean.parseBoolean(split[3]));
-                usersList.add(user);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return usersList;
-    }
 
     @Override
     public String getActionName() {
-        return "Rejstracja";
+        return "Add Employee";
     }
 
     @Override
     public void execute() {
-        signUp();
+        addEmployee();
     }
 }

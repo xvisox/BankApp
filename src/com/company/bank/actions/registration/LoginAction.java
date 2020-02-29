@@ -1,5 +1,6 @@
-package com.company.bank.operations;
+package com.company.bank.actions.registration;
 
+import com.company.bank.actions.Action;
 import com.company.bank.users.User;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class LoginAction implements Action {
 
     @Override
     public String getActionName() {
-        return "Logowanie";
+        return "Sign In";
     }
 
     @Override

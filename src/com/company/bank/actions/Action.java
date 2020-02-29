@@ -1,4 +1,4 @@
-package com.company.bank.operations;
+package com.company.bank.actions;
 
 public interface Action {
     String getActionName();

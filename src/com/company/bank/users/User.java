@@ -50,11 +50,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                ", isAccepted=" + isAccepted +
-                '}';
+        String sb = "login: " + login + " password: " + password + " role: " + role;
+        return sb;
     }
 }
