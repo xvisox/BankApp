@@ -4,12 +4,24 @@ public class User {
     private String login;
     private String password;
     private Role role;
+    private boolean isAccepted;
 
-    public User(String login, String password, Role role) {
+    public User() {
+    }
 
+    public User(String login, String password, Role role, boolean isAccepted) {
         this.login = login;
         this.password = password;
         this.role = role;
+        this.isAccepted = isAccepted;
+    }
+
+    public boolean isAccepted() {
+        return isAccepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        isAccepted = accepted;
     }
 
     public String getLogin() {
@@ -34,5 +46,15 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", isAccepted=" + isAccepted +
+                '}';
     }
 }
