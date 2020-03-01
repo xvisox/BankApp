@@ -1,4 +1,4 @@
-package com.company.bank.actions.user;
+package com.company.bank.actions.employee;
 
 import com.company.bank.actions.Action;
 import com.company.bank.database.Database;

@@ -1,10 +1,11 @@
 package com.company.bank;
 
 import com.company.bank.actions.Action;
+import com.company.bank.actions.employee.EmployeeEdit;
 import com.company.bank.actions.registration.LoginAction;
 import com.company.bank.actions.registration.SignUp;
-import com.company.bank.actions.user.EmployeeAddAction;
-import com.company.bank.actions.user.EmployeeRemove;
+import com.company.bank.actions.employee.EmployeeAddAction;
+import com.company.bank.actions.employee.EmployeeRemove;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 
@@ -25,11 +26,13 @@ public class Main {
         LoginAction logInAction = new LoginAction(sc, usersList);
         EmployeeAddAction employeeAddAction = new EmployeeAddAction(usersList, sc);
         EmployeeRemove employeeRemove = new EmployeeRemove(usersList,sc);
+        EmployeeEdit employeeEdit = new EmployeeEdit(usersList,sc);
 
         menuActions.add(signUpAction);
         menuActions.add(logInAction);
         adminActions.add(employeeAddAction);
         adminActions.add(employeeRemove);
+        adminActions.add(employeeEdit);
         //menu
         actionDisplay(menuActions, sc);
         User sessionUser = logInAction.getSessionUser();
