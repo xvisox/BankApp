@@ -2,6 +2,7 @@ package com.company.bank.actions.employee;
 
 import com.company.bank.actions.Action;
 import com.company.bank.database.Database;
+import com.company.bank.service.UserService;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 
@@ -33,7 +34,7 @@ public class EmployeeRemove implements Action {
                 break;
             }
         }
-        saveUsers();
+        UserService.saveUsers(usersList);
     }
 
     private void displayEmployee() {
@@ -42,30 +43,11 @@ public class EmployeeRemove implements Action {
                 .forEach(System.out::println);
     }
 
-    private void saveUsers() {
-        List<String> lines = new ArrayList<>();
-        for (User user : usersList) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(user.getLogin());
-            sb.append(",");
-            sb.append(user.getPassword());
-            sb.append(",");
-            sb.append(user.getRole());
-            sb.append(",");
-            sb.append(user.isAccepted());
-            lines.add(sb.toString());
-        }
-        PrintWriter pr = null;
-        try {
-            pr = new PrintWriter(new FileOutputStream(Database.usersFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        for (String line : lines) {
-            pr.println(line);
-            pr.flush();
-        }
-        pr.close();
+    @Override
+    public List<Role> getRole() {
+        List<Role> roles = new ArrayList<>();
+        roles.add(Role.ADMIN);
+        return roles;
     }
 
     @Override
