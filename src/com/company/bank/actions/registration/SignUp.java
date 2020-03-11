@@ -1,15 +1,11 @@
 package com.company.bank.actions.registration;
 
-import com.company.bank.actions.Action;
-import com.company.bank.database.Database;
 import com.company.bank.service.PasswordService;
 import com.company.bank.service.UserService;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 
 
-import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -56,4 +52,7 @@ public class SignUp {
         return login;
     }
 
+    public void execute() {
+        signUp();
+    }
 }

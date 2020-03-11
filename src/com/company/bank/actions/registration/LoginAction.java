@@ -22,4 +22,11 @@ public class LoginAction {
         this.scanner = scanner;
         this.users = users;
     }
+
+    public void execute() {
+        Access access = new Access(users, scanner);
+        while (sessionUser == null) {
+            sessionUser = access.logIn();
+        }
+    }
 }

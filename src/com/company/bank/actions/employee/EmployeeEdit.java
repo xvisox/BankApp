@@ -1,14 +1,10 @@
 package com.company.bank.actions.employee;
 
 import com.company.bank.actions.Action;
-import com.company.bank.database.Database;
 import com.company.bank.service.UserService;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -46,10 +42,8 @@ public class EmployeeEdit implements Action {
     }
 
     @Override
-    public List<Role> getRole() {
-        List<Role> roles = new ArrayList<>();
-        roles.add(Role.ADMIN);
-        return roles;
+    public Role getRole() {
+        return Role.ADMIN;
     }
 
     @Override
@@ -60,5 +54,10 @@ public class EmployeeEdit implements Action {
     @Override
     public void execute() {
         editEmployee();
+    }
+
+    @Override
+    public String toString() {
+        return "Edit Employee";
     }
 }
