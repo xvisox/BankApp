@@ -23,29 +23,43 @@ public class LoanApplication implements Action {
 
         System.out.println("Write down login:");
         login = sc.nextLine();
-        Loan loan = createLoan();
-        loanMap.put(login,loan);
-        LoansService.saveLoans(loanMap);
+        if (checkUserLoans(loanMap, login)) {
+            System.out.println("You can have one loan at the time");
+        } else {
+            Loan loan = createLoan();
+            loanMap.put(login, loan);
+            LoansService.saveLoans(loanMap);
+        }
     }
 
     private Loan createLoan() {
         String name, surname, peselStr;
-        int amount, pesel;
+        int amount;
+        long pesel;
         System.out.println("Name and Surname:");
         String[] split = sc.nextLine().split(" ");
         name = split[0];
-        surname = split[0];
+        surname = split[1];
         System.out.println("Write down pesel");
         peselStr = sc.nextLine();
         while (!checkPesel(peselStr)) {
             System.out.println("Try again");
             peselStr = sc.nextLine();
         }
-        pesel = Integer.parseInt(peselStr);
+        pesel = Long.parseLong(peselStr);
         System.out.println("Write down amount:");
         amount = sc.nextInt();
         System.out.println("Your application will be considered soon.");
         return new Loan(name, surname, pesel, amount, false, false);
+    }
+
+    private boolean checkUserLoans(Map<String, Loan> loanMap, String login) {
+        for (Map.Entry<String, Loan> entry : loanMap.entrySet()) {
+            if (entry.getKey().equals(login)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean checkPesel(String pesel) {
