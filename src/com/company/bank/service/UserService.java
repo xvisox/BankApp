@@ -54,4 +54,13 @@ public class UserService {
         }
         return usersList;
     }
+
+    public static User findUser(List<User> usersList, String login) {
+        for (User user : usersList) {
+            if (login.equals(user.getLogin())) {
+                return user;
+            }
+        }
+        return null;
+    }
 }

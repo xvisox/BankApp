@@ -1,11 +1,10 @@
-package com.company.bank.actions.employee;
+package com.company.bank.actions.admin;
 
 import com.company.bank.actions.Action;
 import com.company.bank.service.UserService;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
