@@ -1,6 +1,7 @@
 package com.company.bank.actions.customer;
 
 import com.company.bank.actions.Action;
+import com.company.bank.actions.registration.LoginAction;
 import com.company.bank.loans.Loan;
 import com.company.bank.service.LoansService;
 import com.company.bank.users.Role;
@@ -11,18 +12,16 @@ import java.util.Scanner;
 public class LoanApplication implements Action {
     private Map<String, Loan> loanMap;
     private Scanner sc;
+    private LoginAction loginAction;
 
-    public LoanApplication(Map<String, Loan> loanMap, Scanner sc) {
+    public LoanApplication(Map<String, Loan> loanMap, Scanner sc, LoginAction loginAction) {
         this.loanMap = loanMap;
         this.sc = sc;
+        this.loginAction = loginAction;
     }
 
     private void applyForALoan() {
-        String login;
-        //wolalbym zeby wczytalo login ale nie wiem jak (jeszcze)
-
-        System.out.println("Write down login:");
-        login = sc.nextLine();
+        String login = loginAction.getSessionUser().getLogin();
         if (checkUserLoans(loanMap, login)) {
             System.out.println("You can have one loan at the time");
         } else {
@@ -40,10 +39,10 @@ public class LoanApplication implements Action {
         String[] split = sc.nextLine().split(" ");
         name = split[0];
         surname = split[1];
-        System.out.println("Write down pesel");
+        System.out.println("Write down pesel:");
         peselStr = sc.nextLine();
         while (!checkPesel(peselStr)) {
-            System.out.println("Try again");
+            System.out.println("Try again.");
             peselStr = sc.nextLine();
         }
         pesel = Long.parseLong(peselStr);

@@ -20,11 +20,13 @@ public class Main {
         Map<String, Double> balanceMap = AccountBalanceService.loadBalance();
         Map<String, Loan> loanMap = LoansService.loadLoans();
         List<Action> actions = new ArrayList<>();
-        Initializer initializer = new Initializer(actions, usersList, sc, balanceMap, loanMap);
+        LoginAction loginAction = new LoginAction(sc, usersList);
+        SignUp signUp = new SignUp(usersList, sc);
+        Initializer initializer = new Initializer(actions, usersList, sc, balanceMap, loanMap, loginAction);
         initializer.init();
 
         //menu
-        User sessionUser = mainMenuUser(usersList, sc);
+        User sessionUser = mainMenuUser(sc, loginAction, signUp);
         //actions
         if (sessionUser != null && sessionUser.isAccepted()) {
             Role sessionAccess = sessionUser.getRole();
@@ -48,9 +50,7 @@ public class Main {
         }
     }
 
-    private static User mainMenuUser(List<User> usersList, Scanner sc) {
-        LoginAction loginAction = new LoginAction(sc, usersList);
-        SignUp signUp = new SignUp(usersList, sc);
+    private static User mainMenuUser(Scanner sc, LoginAction loginAction, SignUp signUp) {
         System.out.println("Choose action:\n0 Sign Up\n1 Log In");
         String commandStr = sc.nextLine();
         int command = Integer.parseInt(commandStr);
@@ -67,13 +67,19 @@ public class Main {
     }
 
     private static void displayAndExecute(List<Action> actions, Scanner sc) {
+        String actionNumberStr;
         int actionNumber;
         System.out.println("Choose action: ");
         for (int i = 0; i < actions.size(); i++) {
             System.out.println(i + ". " + actions.get(i).getActionName());
         }
-        actionNumber = sc.nextInt();
-        sc.nextLine();
+        actionNumberStr = sc.nextLine();
+        actionNumber = Integer.parseInt(actionNumberStr);
+        while (actionNumber >= actions.size()) {
+            System.out.println("Try Again");
+            actionNumberStr = sc.nextLine();
+            actionNumber = Integer.parseInt(actionNumberStr);
+        }
         actions.get(actionNumber).execute();
     }
 }

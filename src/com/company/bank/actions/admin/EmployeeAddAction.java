@@ -32,7 +32,7 @@ public class EmployeeAddAction implements Action {
         String login;
         System.out.println("Enter login:");
         login = sc.nextLine();
-        while (PasswordService.isAlreadyTaken(login,usersList)) {
+        while (PasswordService.isAlreadyTaken(login, usersList)) {
             System.out.println("Username is already taken, try again");
             login = sc.nextLine();
         }

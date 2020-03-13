@@ -1,5 +1,7 @@
 package com.company.bank.users;
 
+import java.util.Formatter;
+
 public class User {
     private String login;
     private String password;
@@ -50,7 +52,11 @@ public class User {
 
     @Override
     public String toString() {
-        String sb = "login: " + login + " password: " + password + " role: " + role;
-        return sb;
+        String login1 = "login: " + login;
+        String password1 = "password: " + password;
+        String role1 = "role: " + role;
+        Formatter formatter = new Formatter();
+        formatter.format("%-20s %-25s %-15s", login1, password1, role1);
+        return formatter.toString();
     }
 }
