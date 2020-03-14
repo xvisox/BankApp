@@ -2,7 +2,7 @@ package com.company.bank.actions.admin;
 
 import com.company.bank.actions.Action;
 import com.company.bank.service.PasswordService;
-import com.company.bank.service.UserService;
+import com.company.bank.Utilities.UserUtility;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 
@@ -11,13 +11,12 @@ import java.util.Scanner;
 
 public class EmployeeAddAction implements Action {
     private List<User> usersList;
+    private Scanner sc;
 
     public EmployeeAddAction(List<User> usersList, Scanner sc) {
         this.usersList = usersList;
         this.sc = sc;
     }
-
-    private Scanner sc;
 
     private void addEmployee() {
         String login, password;
@@ -25,7 +24,7 @@ public class EmployeeAddAction implements Action {
         password = settingPassword();
         User user = new User(login, password, Role.EMPLOYEE, true);
         usersList.add(user);
-        UserService.saveUsers(usersList);
+        UserUtility.saveUsers(usersList);
     }
 
     private String settingLogin() {

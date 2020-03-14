@@ -1,4 +1,4 @@
-package com.company.bank.service;
+package com.company.bank.Utilities;
 
 import com.company.bank.database.Database;
 import com.company.bank.users.Role;
@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserService {
+public class UserUtility {
 
     public static void saveUsers(List<User> usersList) {
         List<String> lines = new ArrayList<>();
@@ -23,17 +23,14 @@ public class UserService {
             sb.append(user.isAccepted());
             lines.add(sb.toString());
         }
-        PrintWriter pr = null;
-        try {
-            pr = new PrintWriter(new FileOutputStream(Database.usersFile));
+        try (PrintWriter pr = new PrintWriter(new FileOutputStream(Database.usersFile))) {
+            for (String line : lines) {
+                pr.println(line);
+                pr.flush();
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        for (String line : lines) {
-            pr.println(line);
-            pr.flush();
-        }
-        pr.close();
     }
 
     public static List<User> loadUsers() {

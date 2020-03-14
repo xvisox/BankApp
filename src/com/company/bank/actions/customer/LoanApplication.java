@@ -3,7 +3,7 @@ package com.company.bank.actions.customer;
 import com.company.bank.actions.Action;
 import com.company.bank.actions.registration.LoginAction;
 import com.company.bank.loans.Loan;
-import com.company.bank.service.LoansService;
+import com.company.bank.Utilities.LoansUtility;
 import com.company.bank.users.Role;
 
 import java.util.Map;
@@ -27,7 +27,7 @@ public class LoanApplication implements Action {
         } else {
             Loan loan = createLoan();
             loanMap.put(login, loan);
-            LoansService.saveLoans(loanMap);
+            LoansUtility.saveLoans(loanMap);
         }
     }
 
@@ -48,6 +48,7 @@ public class LoanApplication implements Action {
         pesel = Long.parseLong(peselStr);
         System.out.println("Write down amount:");
         amount = sc.nextInt();
+        sc.nextLine();
         System.out.println("Your application will be considered soon.");
         return new Loan(name, surname, pesel, amount, false, false);
     }

@@ -1,10 +1,9 @@
 package com.company.bank.actions.registration;
 
+import com.company.bank.Utilities.UserUtility;
 import com.company.bank.service.PasswordService;
-import com.company.bank.service.UserService;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
-
 
 import java.util.List;
 import java.util.Scanner;
@@ -24,7 +23,7 @@ public class SignUp {
         password = settingPassword();
         User user = new User(login, password, Role.CUSTOMER, false);
         usersList.add(user);
-        UserService.saveUsers(usersList);
+        UserUtility.saveUsers(usersList);
     }
 
     private String settingPassword() {
@@ -45,8 +44,13 @@ public class SignUp {
         String login;
         System.out.println("Enter login:");
         login = sc.nextLine();
-        while (PasswordService.isAlreadyTaken(login, usersList)) {
-            System.out.println("Username is already taken, try again");
+        while (PasswordService.isAlreadyTaken(login, usersList) || login.length() > 12) {
+            if (PasswordService.isAlreadyTaken(login,usersList)) {
+                System.out.println("Username already taken.");
+            }
+            if (login.length() > 12) {
+                System.out.println("Username max length is 12 characters.");
+            }
             login = sc.nextLine();
         }
         return login;

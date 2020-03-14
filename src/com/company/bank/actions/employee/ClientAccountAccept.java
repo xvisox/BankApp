@@ -1,8 +1,8 @@
 package com.company.bank.actions.employee;
 
 import com.company.bank.actions.Action;
-import com.company.bank.service.AccountBalanceService;
-import com.company.bank.service.UserService;
+import com.company.bank.Utilities.AccountBalanceUtility;
+import com.company.bank.Utilities.UserUtility;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 
@@ -26,13 +26,13 @@ public class ClientAccountAccept implements Action {
         displayCustomers();
         System.out.println("Which customer account do you want to accept?");
         login = sc.nextLine();
-        User foundUser = UserService.findUser(usersList, login);
+        User foundUser = UserUtility.findUser(usersList, login);
         if (foundUser != null) {
             System.out.println("Success, user found");
             foundUser.setAccepted(true);
             balanceMap.put(foundUser.getLogin(), 0.0);
-            UserService.saveUsers(usersList);
-            AccountBalanceService.saveBalance(balanceMap);
+            UserUtility.saveUsers(usersList);
+            AccountBalanceUtility.saveBalance(balanceMap);
         } else {
             System.out.println("User not found");
         }

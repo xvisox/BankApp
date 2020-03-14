@@ -2,7 +2,7 @@ package com.company.bank.actions.customer;
 
 import com.company.bank.actions.Action;
 import com.company.bank.actions.registration.LoginAction;
-import com.company.bank.service.AccountBalanceService;
+import com.company.bank.Utilities.AccountBalanceUtility;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 
@@ -34,7 +34,7 @@ public class TransferAction implements Action {
 
             balanceMap.put(sessionUserLogin, balanceSessionUser);
             balanceMap.put(receiverLogin, balanceOfReceiver);
-            AccountBalanceService.saveBalance(balanceMap);
+            AccountBalanceUtility.saveBalance(balanceMap);
         }
     }
 

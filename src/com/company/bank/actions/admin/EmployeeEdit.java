@@ -1,7 +1,7 @@
 package com.company.bank.actions.admin;
 
 import com.company.bank.actions.Action;
-import com.company.bank.service.UserService;
+import com.company.bank.Utilities.UserUtility;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 
@@ -20,7 +20,7 @@ public class EmployeeEdit implements Action {
     private void editEmployee() {
         String login, password;
         boolean found = false;
-        System.out.println("Which admin do you want to edit?");
+        System.out.println("Which employee do you want to edit?");
         displayEmployee();
         login = sc.nextLine();
         for (User user : usersList) {
@@ -36,7 +36,7 @@ public class EmployeeEdit implements Action {
         if (!found) {
             System.out.println("User not found");
         }
-        UserService.saveUsers(usersList);
+        UserUtility.saveUsers(usersList);
     }
 
     private void displayEmployee() {

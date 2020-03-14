@@ -1,4 +1,4 @@
-package com.company.bank.service;
+package com.company.bank.Utilities;
 
 import com.company.bank.database.Database;
 
@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AccountBalanceService {
+public class AccountBalanceUtility {
 
     public static void saveBalance(Map<String, Double> balanceMap) {
         List<String> lines = new ArrayList<>();
@@ -19,17 +19,14 @@ public class AccountBalanceService {
             sb.append(entry.getValue());
             lines.add(sb.toString());
         }
-        PrintWriter pr = null;
-        try {
-            pr = new PrintWriter(new FileOutputStream(Database.accountBalanceFile));
+        try (PrintWriter pr = new PrintWriter(new FileOutputStream(Database.accountBalanceFile))) {
+            for (String line : lines) {
+                pr.println(line);
+                pr.flush();
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        for (String line : lines) {
-            pr.println(line);
-            pr.flush();
-        }
-        pr.close();
     }
 
     public static Map<String, Double> loadBalance() {

@@ -1,52 +1,59 @@
 package com.company.bank;
 
+import com.company.bank.Utilities.AccountBalanceUtility;
+import com.company.bank.Utilities.LoansUtility;
+import com.company.bank.Utilities.UserUtility;
 import com.company.bank.actions.Action;
 import com.company.bank.actions.registration.LoginAction;
 import com.company.bank.actions.registration.SignUp;
 import com.company.bank.loans.Loan;
-import com.company.bank.service.AccountBalanceService;
-import com.company.bank.service.LoansService;
-import com.company.bank.service.UserService;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        List<User> usersList = UserService.loadUsers();
-        Map<String, Double> balanceMap = AccountBalanceService.loadBalance();
-        Map<String, Loan> loanMap = LoansService.loadLoans();
+        List<User> usersList = UserUtility.loadUsers();
+        Map<String, Double> balanceMap = AccountBalanceUtility.loadBalance();
+        Map<String, Loan> loanMap = LoansUtility.loadLoans();
         List<Action> actions = new ArrayList<>();
         LoginAction loginAction = new LoginAction(sc, usersList);
         SignUp signUp = new SignUp(usersList, sc);
-        Initializer initializer = new Initializer(actions, usersList, sc, balanceMap, loanMap, loginAction);
+        Initializer initializer = new Initializer.Builder()
+                .sc(sc)
+                .actionList(actions)
+                .balanceMap(balanceMap)
+                .loanMap(loanMap)
+                .loginAction(loginAction)
+                .usersList(usersList)
+                .build();
         initializer.init();
 
         //menu
         User sessionUser = mainMenuUser(sc, loginAction, signUp);
         //actions
         if (sessionUser != null && sessionUser.isAccepted()) {
+            String command;
             Role sessionAccess = sessionUser.getRole();
             List<Action> sessionActions = Action.getActionForRoles(actions, sessionAccess);
-            switch (sessionAccess) {
-                case ADMIN:
-                    System.out.println("Logged as admin");
-                    displayAndExecute(sessionActions, sc);
+
+            System.out.println("Logged as " + sessionAccess);
+            while (true) {
+                System.out.println("To continue press enter, if you want to leave type 'exit'");
+                command = sc.nextLine();
+                if (command.equals("exit")) {
                     break;
-                case EMPLOYEE:
-                    System.out.println("Logged as employee");
-                    displayAndExecute(sessionActions, sc);
-                    break;
-                case CUSTOMER:
-                    System.out.println("Logged as customer");
-                    displayAndExecute(sessionActions, sc);
-                    break;
+                }
+                displayAndExecute(sessionActions, sc);
             }
         } else {
-            System.out.println("Try again later...");
+            System.out.println("Check your account later...");
         }
     }
 

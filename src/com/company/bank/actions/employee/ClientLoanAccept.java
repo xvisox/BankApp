@@ -2,8 +2,8 @@ package com.company.bank.actions.employee;
 
 import com.company.bank.actions.Action;
 import com.company.bank.loans.Loan;
-import com.company.bank.service.AccountBalanceService;
-import com.company.bank.service.LoansService;
+import com.company.bank.Utilities.AccountBalanceUtility;
+import com.company.bank.Utilities.LoansUtility;
 import com.company.bank.users.Role;
 
 import java.util.Map;
@@ -28,10 +28,10 @@ public class ClientLoanAccept implements Action {
         if (userLoan != null) {
             userLoan.setAccepted(true);
             System.out.println("Success!");
-            LoansService.saveLoans(loanMap);
+            LoansUtility.saveLoans(loanMap);
             double dAmount = userLoan.getAmount();
             accountBalanceMap.put(login, accountBalanceMap.get(login) + dAmount);
-            AccountBalanceService.saveBalance(accountBalanceMap);
+            AccountBalanceUtility.saveBalance(accountBalanceMap);
         } else {
             System.out.println("User not found");
         }

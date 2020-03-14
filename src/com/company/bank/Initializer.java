@@ -17,20 +17,44 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Initializer {
-    private final List<Action> actionList;
-    private final List<User> usersList;
-    private final Scanner sc;
-    private final Map<String, Double> balanceMap;
-    private final Map<String, Loan> loanMap;
-    private final LoginAction loginAction;
+    private List<Action> actionList;
+    private List<User> usersList;
+    private Scanner sc;
+    private Map<String, Double> balanceMap;
+    private Map<String, Loan> loanMap;
+    private LoginAction loginAction;
 
-    public Initializer(List<Action> actionList, List<User> usersList, Scanner sc, Map<String, Double> balanceMap, Map<String, Loan> loanMap, LoginAction loginAction) {
-        this.actionList = actionList;
-        this.usersList = usersList;
-        this.sc = sc;
-        this.balanceMap = balanceMap;
-        this.loanMap = loanMap;
-        this.loginAction = loginAction;
+    private Initializer(Builder builder) {
+        this.actionList = builder.actionList;
+        this.balanceMap = builder.balanceMap;
+        this.loanMap = builder.loanMap;
+        this.loginAction = builder.loginAction;
+        this.sc = builder.sc;
+        this.usersList = builder.usersList;
+    }
+
+    public List<Action> getActionList() {
+        return actionList;
+    }
+
+    public List<User> getUsersList() {
+        return usersList;
+    }
+
+    public Scanner getSc() {
+        return sc;
+    }
+
+    public Map<String, Double> getBalanceMap() {
+        return balanceMap;
+    }
+
+    public Map<String, Loan> getLoanMap() {
+        return loanMap;
+    }
+
+    public LoginAction getLoginAction() {
+        return loginAction;
     }
 
     public void init() {
@@ -49,5 +73,48 @@ public class Initializer {
         actionList.add(loanApplication);
         actionList.add(clientLoanAccept);
         actionList.add(transferAction);
+    }
+
+    public static class Builder {
+        private List<Action> actionList;
+        private List<User> usersList;
+        private Scanner sc;
+        private Map<String, Double> balanceMap;
+        private Map<String, Loan> loanMap;
+        private LoginAction loginAction;
+
+        public Builder actionList(List<Action> actionList) {
+            this.actionList = actionList;
+            return this;
+        }
+
+        public Builder usersList(List<User> usersList) {
+            this.usersList = usersList;
+            return this;
+        }
+
+        public Builder sc(Scanner sc) {
+            this.sc = sc;
+            return this;
+        }
+
+        public Builder balanceMap(Map<String, Double> balanceMap) {
+            this.balanceMap = balanceMap;
+            return this;
+        }
+
+        public Builder loanMap(Map<String, Loan> loanMap) {
+            this.loanMap = loanMap;
+            return this;
+        }
+
+        public Builder loginAction(LoginAction loginAction) {
+            this.loginAction = loginAction;
+            return this;
+        }
+
+        public Initializer build() {
+            return new Initializer(this);
+        }
     }
 }

@@ -56,7 +56,7 @@ public class User {
         String password1 = "password: " + password;
         String role1 = "role: " + role;
         Formatter formatter = new Formatter();
-        formatter.format("%-20s %-25s %-15s", login1, password1, role1);
+        formatter.format("%-20s %-30s %-15s", login1, password1, role1);
         return formatter.toString();
     }
 }
