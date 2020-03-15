@@ -25,36 +25,12 @@ public class Initializer {
     private LoginAction loginAction;
 
     private Initializer(Builder builder) {
-        this.actionList = builder.actionList;
-        this.balanceMap = builder.balanceMap;
-        this.loanMap = builder.loanMap;
-        this.loginAction = builder.loginAction;
-        this.sc = builder.sc;
-        this.usersList = builder.usersList;
-    }
-
-    public List<Action> getActionList() {
-        return actionList;
-    }
-
-    public List<User> getUsersList() {
-        return usersList;
-    }
-
-    public Scanner getSc() {
-        return sc;
-    }
-
-    public Map<String, Double> getBalanceMap() {
-        return balanceMap;
-    }
-
-    public Map<String, Loan> getLoanMap() {
-        return loanMap;
-    }
-
-    public LoginAction getLoginAction() {
-        return loginAction;
+        actionList = builder.actionList;
+        usersList = builder.usersList;
+        sc = builder.sc;
+        balanceMap = builder.balanceMap;
+        loanMap = builder.loanMap;
+        loginAction = builder.loginAction;
     }
 
     public void init() {
@@ -75,7 +51,7 @@ public class Initializer {
         actionList.add(transferAction);
     }
 
-    public static class Builder {
+    public static final class Builder {
         private List<Action> actionList;
         private List<User> usersList;
         private Scanner sc;
@@ -83,33 +59,36 @@ public class Initializer {
         private Map<String, Loan> loanMap;
         private LoginAction loginAction;
 
-        public Builder actionList(List<Action> actionList) {
-            this.actionList = actionList;
+        public Builder() {
+        }
+
+        public Builder withActionList(List<Action> val) {
+            actionList = val;
             return this;
         }
 
-        public Builder usersList(List<User> usersList) {
-            this.usersList = usersList;
+        public Builder withUsersList(List<User> val) {
+            usersList = val;
             return this;
         }
 
-        public Builder sc(Scanner sc) {
-            this.sc = sc;
+        public Builder withSc(Scanner val) {
+            sc = val;
             return this;
         }
 
-        public Builder balanceMap(Map<String, Double> balanceMap) {
-            this.balanceMap = balanceMap;
+        public Builder withBalanceMap(Map<String, Double> val) {
+            balanceMap = val;
             return this;
         }
 
-        public Builder loanMap(Map<String, Loan> loanMap) {
-            this.loanMap = loanMap;
+        public Builder withLoanMap(Map<String, Loan> val) {
+            loanMap = val;
             return this;
         }
 
-        public Builder loginAction(LoginAction loginAction) {
-            this.loginAction = loginAction;
+        public Builder withLoginAction(LoginAction val) {
+            loginAction = val;
             return this;
         }
 

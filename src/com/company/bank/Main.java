@@ -26,12 +26,12 @@ public class Main {
         LoginAction loginAction = new LoginAction(sc, usersList);
         SignUp signUp = new SignUp(usersList, sc);
         Initializer initializer = new Initializer.Builder()
-                .sc(sc)
-                .actionList(actions)
-                .balanceMap(balanceMap)
-                .loanMap(loanMap)
-                .loginAction(loginAction)
-                .usersList(usersList)
+                .withSc(sc)
+                .withActionList(actions)
+                .withBalanceMap(balanceMap)
+                .withLoanMap(loanMap)
+                .withLoginAction(loginAction)
+                .withUsersList(usersList)
                 .build();
         initializer.init();
 
