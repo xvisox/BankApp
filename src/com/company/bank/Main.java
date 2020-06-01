@@ -1,8 +1,8 @@
 package com.company.bank;
 
-import com.company.bank.Utilities.AccountBalanceUtility;
-import com.company.bank.Utilities.LoansUtility;
-import com.company.bank.Utilities.UserUtility;
+import com.company.bank.utilities.AccountBalanceUtility;
+import com.company.bank.utilities.LoansUtility;
+import com.company.bank.utilities.UserUtility;
 import com.company.bank.actions.Action;
 import com.company.bank.actions.registration.LoginAction;
 import com.company.bank.actions.registration.SignUp;
@@ -36,6 +36,7 @@ public class Main {
         initializer.init();
 
         //menu
+        //see if git works
         User sessionUser = mainMenuUser(sc, loginAction, signUp);
         //actions
         if (sessionUser != null && sessionUser.isAccepted()) {

@@ -1,8 +1,8 @@
 package com.company.bank.actions.admin;
 
 import com.company.bank.actions.Action;
-import com.company.bank.service.PasswordService;
-import com.company.bank.Utilities.UserUtility;
+import com.company.bank.utilities.PasswordUtility;
+import com.company.bank.utilities.UserUtility;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 
@@ -31,7 +31,7 @@ public class EmployeeAddAction implements Action {
         String login;
         System.out.println("Enter login:");
         login = sc.nextLine();
-        while (PasswordService.isAlreadyTaken(login, usersList)) {
+        while (PasswordUtility.isAlreadyTaken(login, usersList)) {
             System.out.println("Username is already taken, try again");
             login = sc.nextLine();
         }
@@ -44,7 +44,7 @@ public class EmployeeAddAction implements Action {
 
         System.out.println("Enter password: ");
         password = sc.nextLine();
-        while (!PasswordService.passCheck(password)) {
+        while (!PasswordUtility.passCheck(password)) {
             System.out.println(securityInfo);
             password = sc.nextLine();
         }

@@ -1,4 +1,4 @@
-package com.company.bank.Utilities;
+package com.company.bank.utilities;
 
 import com.company.bank.database.Database;
 

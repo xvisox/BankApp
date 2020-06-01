@@ -1,10 +1,10 @@
-package com.company.bank.service;
+package com.company.bank.utilities;
 
 import com.company.bank.users.User;
 
 import java.util.List;
 
-public class PasswordService {
+public class PasswordUtility {
 
     public static boolean passCheck(String password) {
         boolean valid = true;

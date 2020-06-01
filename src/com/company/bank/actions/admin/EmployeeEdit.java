@@ -1,7 +1,7 @@
 package com.company.bank.actions.admin;
 
 import com.company.bank.actions.Action;
-import com.company.bank.Utilities.UserUtility;
+import com.company.bank.utilities.UserUtility;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 

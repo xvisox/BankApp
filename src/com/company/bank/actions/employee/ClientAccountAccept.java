@@ -1,8 +1,8 @@
 package com.company.bank.actions.employee;
 
 import com.company.bank.actions.Action;
-import com.company.bank.Utilities.AccountBalanceUtility;
-import com.company.bank.Utilities.UserUtility;
+import com.company.bank.utilities.AccountBalanceUtility;
+import com.company.bank.utilities.UserUtility;
 import com.company.bank.users.Role;
 import com.company.bank.users.User;
 

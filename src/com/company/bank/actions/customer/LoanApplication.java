@@ -3,7 +3,7 @@ package com.company.bank.actions.customer;
 import com.company.bank.actions.Action;
 import com.company.bank.actions.registration.LoginAction;
 import com.company.bank.loans.Loan;
-import com.company.bank.Utilities.LoansUtility;
+import com.company.bank.utilities.LoansUtility;
 import com.company.bank.users.Role;
 
 import java.util.Map;
